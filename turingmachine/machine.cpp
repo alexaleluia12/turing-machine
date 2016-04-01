@@ -25,3 +25,8 @@ bool in_value(Json::Value & e, string target){
   Json::ValueIterator where = find(e.begin(), e.end(), target);
   return where != e.end();
 }
+
+string extract_word(string & target, char blank){
+  int local = target.find_first_of(blank) - 1;
+  return target.substr(1, local);
+}

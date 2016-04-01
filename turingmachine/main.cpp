@@ -9,10 +9,11 @@
 
 
 // TODO
-// compile it with make g++
-// present the final word without blank and start
+// ok compile it with make g++
+// ok present the final word without blank and start
 // make automated test
 // documentate JSON structure
+// make validations on json
 // integrate this project with python
 //   http://stackoverflow.com/questions/1153577/integrate-python-and-c
 using namespace std;
@@ -23,20 +24,21 @@ const string LEFT  = "L";
 
 
 
-void maquina(string word_user){
-  cout << "comecou a trabalhar mas parou" << endl;
-  string word;
+string maquina(string word_user){
+
   int index = 1;
-  Json::Value structure  = get_json_content(LOCAL);
+  Json::Value structure = get_json_content(LOCAL);
   string blank_str = structure["blank"].asString();
+  char blank_chr = blank_str.at(0);
   string start = structure["initial"].asString();
   Json::Value transitions = structure["transitions"];
   Json::Value current_state = transitions[start];
   string str_current = start;
   Json::Value tmp_state;
   // construct; use start and blank from json file
-  word = structure["start"].asString() + word_user + blank_str;
+  string word = structure["start"].asString() + word_user + blank_str;
   string aux;
+  string output;
 
   // word[index] shoud be a key of current state
   // if true will give [next_state, to_write, direction]
@@ -49,7 +51,7 @@ void maquina(string word_user){
         aux = tmp_state[1].asString();
 
         // if word[index] is blank add other blank
-        if(word[index] == blank_str.at(0)){
+        if(word[index] == blank_chr){
           word += blank_str;
         }
         word[index] = aux.at(0);
@@ -63,17 +65,20 @@ void maquina(string word_user){
       // no state to go
       } else {
         if(in_value(structure["finals"], str_current)){
-          cout << "True; " << word << endl;
+          output = "True:";
         } else {
-          cout << "False; " << word << endl;
+          output = "False:";
         }
+        output += extract_word(word, blank_chr);
         break;
       }
     }
 
   } catch(Json::LogicError e){
-      cout << "False;; " << word << endl;
+      output = "False:" + extract_word(word, blank_chr);
   }
+
+  return output;
 
 }
 
@@ -81,6 +86,7 @@ void maquina(string word_user){
 
 int main(){
 
-  maquina("0001");
+  string e = maquina("00a1");
+  cout << "Get " << e << endl;
   return 0;
 }
