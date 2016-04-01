@@ -1,33 +1,28 @@
 #include <iostream>
 #include <string>
-
+#include <cstdlib>
 
 #include "json/json.h"
 #include "machine.h"
 
-// JSON structure
-
 
 // TODO
-// ok compile it with make g++
-// ok present the final word without blank and start
-// make automated test
 // documentate JSON structure
 // make validations on json
 // integrate this project with python
 //   http://stackoverflow.com/questions/1153577/integrate-python-and-c
 using namespace std;
 
-const string LOCAL = "/home/alex/Documentos/cod/my/cpp-qt/qt-teste/struct.json";
+
 const string RIGHT = "R";
 const string LEFT  = "L";
 
 
 
-string maquina(string word_user){
+string maquina(string word_user, const string json_path){
 
   int index = 1;
-  Json::Value structure = get_json_content(LOCAL);
+  Json::Value structure = get_json_content(json_path);
   string blank_str = structure["blank"].asString();
   char blank_chr = blank_str.at(0);
   string start = structure["initial"].asString();
@@ -84,9 +79,14 @@ string maquina(string word_user){
 
 
 
-int main(){
-
-  string e = maquina("00a1");
+int main(int argc, char * argv[]){
+  if(argc != 3){
+      cout << "Failed; should pass <word2test> <path_json>" << endl;
+      exit(EXIT_FAILURE);
+  }
+  string word(argv[1]);
+  string file_local(argv[2]);
+  string e = maquina(word, file_local);
   cout << "Get " << e << endl;
   return 0;
 }
