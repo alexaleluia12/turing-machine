@@ -1,0 +1,5 @@
+*.o
+build-turingmachine-Desktop-Debug/*
+bin/main
+*.pro
+*.pro.user
