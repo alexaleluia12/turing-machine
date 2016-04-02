@@ -7,10 +7,7 @@
 
 
 // TODO
-// make validations on json
-// alex@pc:~/Documentos/cod/my/cpp-qt/turingmachine$ # finals shold be in states
-// alex@pc:~/Documentos/cod/my/cpp-qt/turingmachine$ # initial shold be in states
-// alex@pc:~/Documentos/cod/my/cpp-qt/turingmachine$
+// test with other automaton
 // integrate this project with python
 //   http://stackoverflow.com/questions/1153577/integrate-python-and-c
 using namespace std;
@@ -88,8 +85,8 @@ string machine(string word_user, const string json_path){
 
 int main(int argc, char * argv[]){
   if(argc != 3){
-      cout << "Failed; should pass <word2test> <path_json>" << endl;
-      exit(EXIT_FAILURE);
+    cout << "Failed; should pass <word2test> <path_json>" << endl;
+    exit(EXIT_FAILURE);
   }
   string word(argv[1]);
   string file_local(argv[2]);

@@ -12,13 +12,13 @@ Example formal description to invert binary bits (0 > 1, 1 > 0)
 {
     "states": ["S0", "S1", "S2"], // set of states
     "initial": "S0",              // inital state
-    "simbols": ["0", "1"],        // set of simbols on tape
+    "symbols": ["0", "1"],        // set of symbols on tape
     "finals": ["S2"],             // set of finals states 
     "blank": "B",                 // blank symbol (indicate end of the word on tape)
     "start": "<",                 // start symbol (indicate start of the word on tape)
     
     
-    "transitions": {              // transition function (main struct of turing machine)
+    "transitions": {              // transition function (main structure of turing machine)
     
     // (state): {(on tape): [(next_state, 2write, direction)], ...}
         "S0": {"0": ["S0", "1", "R"],
