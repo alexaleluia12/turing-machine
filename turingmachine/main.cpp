@@ -7,8 +7,10 @@
 
 
 // TODO
-// documentate JSON structure
 // make validations on json
+// alex@pc:~/Documentos/cod/my/cpp-qt/turingmachine$ # finals shold be in states
+// alex@pc:~/Documentos/cod/my/cpp-qt/turingmachine$ # initial shold be in states
+// alex@pc:~/Documentos/cod/my/cpp-qt/turingmachine$
 // integrate this project with python
 //   http://stackoverflow.com/questions/1153577/integrate-python-and-c
 using namespace std;
@@ -19,7 +21,7 @@ const string LEFT  = "L";
 
 
 
-string maquina(string word_user, const string json_path){
+string machine(string word_user, const string json_path){
 
   int index = 1;
   Json::Value structure = get_json_content(json_path);
@@ -34,6 +36,7 @@ string maquina(string word_user, const string json_path){
   string word = structure["start"].asString() + word_user + blank_str;
   string aux;
   string output;
+  string aux_direction;
 
   // word[index] shoud be a key of current state
   // if true will give [next_state, to_write, direction]
@@ -51,10 +54,14 @@ string maquina(string word_user, const string json_path){
         }
         word[index] = aux.at(0);
 
-        if(tmp_state[2].asString() == RIGHT){
+        aux_direction = tmp_state[2].asString();
+        if(aux_direction == RIGHT){
           ++index;
-        } else {
+        } else if(aux_direction == LEFT){
           --index;
+        } else {
+          cout << "Invalid direction: " << aux_direction << endl;
+          exit(EXIT_FAILURE);
         }
 
       // no state to go
@@ -70,7 +77,7 @@ string maquina(string word_user, const string json_path){
     }
 
   } catch(Json::LogicError e){
-      output = "False:" + extract_word(word, blank_chr);
+    output = "False:" + extract_word(word, blank_chr);
   }
 
   return output;
@@ -86,7 +93,7 @@ int main(int argc, char * argv[]){
   }
   string word(argv[1]);
   string file_local(argv[2]);
-  string e = maquina(word, file_local);
-  cout << "Get " << e << endl;
+  string e = machine(word, file_local);
+  cout << e << endl;
   return 0;
 }
