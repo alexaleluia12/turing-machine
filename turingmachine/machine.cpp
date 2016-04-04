@@ -9,6 +9,9 @@ using namespace std;
 bool is_json_valid(Json::Value & j){
   // finals shold be on states
   // initial shold be on states
+  
+  // the keys shold be the same
+  // the blank should not be on symbols
 
   Json::Value set_finals = j["finals"];
   Json::Value states = j["states"];
@@ -53,8 +56,6 @@ Json::Value get_json_content(const string local){
   }
   cout << "File not foud at " << local << endl;
   exit(EXIT_FAILURE);
-
-
 }
 
 bool in_value(Json::Value & e, string target){

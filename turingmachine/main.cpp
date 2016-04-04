@@ -5,17 +5,14 @@
 #include "json/json.h"
 #include "machine.h"
 
-
 // TODO
-// test with other automaton
-// integrate this project with python
-//   http://stackoverflow.com/questions/1153577/integrate-python-and-c
+// implementa graph interface
+
 using namespace std;
 
 
 const string RIGHT = "R";
 const string LEFT  = "L";
-
 
 
 string machine(string word_user, const string json_path){

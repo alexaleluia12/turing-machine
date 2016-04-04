@@ -36,6 +36,10 @@ Example formal description to invert binary bits (0 > 1, 1 > 0)
     }
 }
 ```
+
+(data/recognizer.json)
+formal description of {a^n b^n | n >= 0}
+
 --
 
 ##To build local
