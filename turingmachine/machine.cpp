@@ -7,15 +7,16 @@
 using namespace std;
 
 bool is_json_valid(Json::Value & j){
-  // finals shold be on states
-  // initial shold be on states
-  
-  // the keys shold be the same
+  // finals should be on states
+  // initial should be on states
+  // the keys should be the same
   // the blank should not be on symbols
 
   Json::Value set_finals = j["finals"];
   Json::Value states = j["states"];
   string initial_str = j["initial"].asString();
+  string keys[] = {"states", "initial", "symbols", "finals", "blank", "start",
+                   "transitions"};
 
   // finals
   Json::ValueIterator start = set_finals.begin();
@@ -39,7 +40,25 @@ bool is_json_valid(Json::Value & j){
 
     exit(EXIT_FAILURE);
   }
-  // initial and finals pass
+
+  // check the keys
+  for(string e: keys){
+    aux = j[e];
+    if(aux.isNull()){
+      cout << "Error in json file; " << e << " should be a key on json file"
+           << endl;
+      exit(EXIT_FAILURE);
+    }
+  }
+
+  // check blank symbol
+  string blank = j["blank"].asString();
+  if(in_value(j["symbols"], blank)){
+    cout << "Error in json file; blank symbol " << blank << " should not be on"
+         << " symbols" << endl;
+    exit(EXIT_FAILURE);
+  }
+
   return true;
 }
 
